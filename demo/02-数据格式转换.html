@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+<script>
+  // [{ id: 0, name: '推荐' }, { id: 1, name: "前端" }] => [{ id: 0, seq: 0 }, { id: 1, seq: 1 }]
+  const arr = [{ id: 0, name: '推荐' }, { id: 1, name: "前端" }]
+  // map映射, 可以基于数组原来的每一项进行遍历, 将返回值一一收集, 收集到一个新数组中
+  const results = arr.map((item, index) => {
+    return {
+      id: item.id,
+      seq: index
+    }
+  })
+  console.log(results)
+
+
+</script>
+</body>
+</html>

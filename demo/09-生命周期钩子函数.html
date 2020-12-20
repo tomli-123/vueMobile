@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ msg }}
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 八大生命周期函数: 这些生命周期函数, 会在vue的生命周期的不同阶段, 会自动被vue调用
+      // 初始化阶段:
+      // beforeCreate
+      // created ---- 一般会在其中发送初始化的ajax请求, 只要数据就绪, 就可以发送ajax了
+      // beforeMount
+      // mounted ---- this.$refs.xxx 获取页面的元素, 至少要在mounted, 或者mounted后
+      // dom基本更新了, 可以开始操作dom, 获取元素
+
+      // ------------------------------------------------------------------------
+      // 数据更新阶段:
+      // beforeUpdate 数据变化了, 视图更新前
+      // updated      数据变化了, 视图更新后
+      // ------------------------------------------------------------------------
+      // 销毁阶段:
+      // beforeDestroy 实例销毁, 释放监听之前
+      // destroyed     实例销毁, 释放监听之后
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          list: []
+        },
+        // 太早了, 早到数据都还没初始化
+        beforeCreate () {
+          console.log('beforeCreate 在data数据注入到实例之前, 此时实例身上没有数据')
+          console.log(this.msg)
+        },
+        // 数据初始化完
+        // 一般发送请求, 初始化数据, 固然是希望越早越好, 但是最早也只能放到 created 中
+        created () {
+          console.log('created 在data数据注入到实例之后, 此时实例身上有数据')
+          console.log(this.msg)
+          // 发送ajax, 得到数据的结果
+          // this.list = res.data.data.arr
+        },
+        beforeMount () {
+          console.log('beforeMount 在生成的结构替换视图之前')
+          console.log(document.querySelector('#app').outerHTML)
+        },
+        // 结构初始化完
+        mounted () {
+          console.log('mounted 在生成的结构替换视图之后, 此时dom更新完成了')
+          console.log(document.querySelector('#app').outerHTML)
+        },
+        beforeUpdate () {
+          console.log('beforeUpdate 数据变化了, dom更新之前')
+          console.log(document.querySelector('#app').outerHTML)
+        },
+        updated () {
+          console.log('updated 数据变化了, dom更新之后')
+          console.log(document.querySelector('#app').outerHTML)
+        },
+        beforeDestroy () {
+          console.log('beforeDestroy')
+        },
+        // 实例销毁, 我们一般可以在销毁的函数中, 释放一些自己的资源
+        // 例如: 定时器, websocket连接
+        destroyed () {
+          console.log('destroyed 释放完资源了')
+        }
+      })
+    </script>
+  </body>
+</html>

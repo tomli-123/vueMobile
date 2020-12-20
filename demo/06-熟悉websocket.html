@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <button id="open">开启连接</button>
+  <button id="close">关闭连接</button>
+  <button id="send">发送消息</button>
+
+  <script>
+
+    const openBtn = document.querySelector('#open')
+    const closeBtn = document.querySelector('#close')
+    const sendBtn = document.querySelector('#send')
+
+    // 1 建立连接, 创建WebSocket对象, new WebSocket('服务器地址')
+    // 2 监听连接 ws.onopen = function() {...}
+    // 3 监听消息 ws.onmessage = function() {...}
+    // 4 发送消息 ws.send(消息内容)
+    // 5 关闭连接 ws.close()
+    let ws
+    let isOpen = false // 标记websockt是否是连接状态
+
+    openBtn.onclick = function() {
+      // 创建连接
+      ws = new WebSocket('wss://echo.websocket.org') // 鹦鹉学舌
+
+      // 添加连接的监听, open事件 
+      ws.onopen = function() {
+        console.log('服务器建立连接成功')
+        isOpen = true
+      }
+
+      // 添加消息的监听, message事件
+      ws.onmessage = function(event) {
+        console.log('服务器来消息了')
+        console.log('服务器说:' + event.data)
+      }
+    }
+    closeBtn.onclick = function() {
+      ws.close()
+      isOpen = false
+      console.log('服务器连接关闭')
+    }
+    sendBtn.onclick = function() {
+      // 一定是连接建立的状态, 才往后台发消息
+      if (isOpen) {
+        ws.send('你好, 我是小鹏~')
+      } else {
+        alert('当前连接已断开, 请先连接')
+      }
+    }
+
+
+  </script>
+
+</body>
+</html>

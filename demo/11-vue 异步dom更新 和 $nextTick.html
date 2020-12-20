@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ msg }}</h1>
+      <button @click="changeMsg">改值</button>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // vue是异步dom更新的
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        methods: {
+          changeMsg () {
+            // vue是异步dom更新的, 当操作数据之后, 不会立刻更新视图, 而是统一更新
+            // this.msg = 'zs1'
+            // this.msg = 'zs2'
+            // this.msg = 'zs3'
+            // this.msg = 'zs4'
+            // console.log(document.querySelector('h1').outerHTML) // <h1>hello vue</h1>
+
+            this.msg = 'zs'
+            // 想要拿到更新后的dom
+            this.$nextTick(() => {
+              // 这个函数, 就是在dom更新后, 立刻调用
+              console.log(document.querySelector('h1').outerHTML) // <h1>zs</h1>
+            })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

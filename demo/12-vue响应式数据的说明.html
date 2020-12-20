@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ obj.name }}</h1>
+      <h1>{{ obj.age }}</h1>
+      <button @click="add">动态新增一个响应式的属性</button>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // vue的数据是响应式, 修改了数据, 视图会自动更新 (异步dom更新)
+      // 1. 如果希望数据是响应式的, 你需要将这个数据在data中声明
+      // 2. 如果就希望动态的新增一个响应式的对象属性, this.$set
+      // const vm = new Vue({
+      //   el: '#app',
+      //   data: {
+      //     msg: 'hello vue'
+      //   }
+      // })
+      // // 根级别的响应式数据, 不允许新增的
+      // vm.test = 'zs'
+
+      // -----------------------------------------------------------
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          // 如果需要响应式的数据, 应该在data中声明
+          obj: {
+            name: 'zs'
+          }
+        },
+        methods: {
+          add () {
+            // this.$set(对象名, 属性, 值) (了解)
+            this.$set(this.obj, 'age', 18)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

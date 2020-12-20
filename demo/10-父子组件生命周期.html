@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ msg }}</h1>
+      <jack :msg="msg" v-if="flag"></jack>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      Vue.component('jack', {
+        props: ['msg'],
+        template: `
+          <div>我是jack组件 - {{ msg }}</div>
+        `,
+        beforeCreate () {
+          console.log('jack beforeCreate')
+        },
+        created () {
+          // 这里面一般发送请求
+          console.log('jack created')
+        },
+        beforeMount () {
+          console.log('jack beforeMount')
+        },
+        mounted () {
+          console.log('jack mounted')
+        },
+        beforeUpdate () {
+          console.log('jack beforeUpdate')
+        },
+        updated () {
+          console.log('jack updated')
+        },
+        beforeDestroy () {
+          console.log('jack beforeDestroy')
+        },
+        destroyed () {
+          console.log('jack destroyed')
+        }
+      })
+
+      // 八大生命周期函数: 这些生命周期函数, 会在vue的生命周期的不同阶段, 会自动被vue调用
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          list: [],
+          flag: true
+        },
+        // 初始化阶段
+        beforeCreate () {
+          console.log('vm - beforeCreate')
+        },
+        created () {
+          console.log('vm - created')
+        },
+        beforeMount () {
+          console.log('vm - beforeMount')
+        },
+        mounted () {
+          console.log('vm - mounted')
+        },
+        // 数据更新阶段
+        beforeUpdate () {
+          console.log('vm - beforeUpdate')
+        },
+        updated () {
+          console.log('vm - updated')
+        },
+        // 实例销毁
+        beforeDestroy () {
+          console.log('vm - beforeDestroy')
+        },
+        destroyed () {
+          console.log('vm - destroyed')
+        }
+      })
+    </script>
+  </body>
+</html>

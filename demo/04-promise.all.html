@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <!-- 
+    // 后面的.then中配置的函数, 是在前面的所有promise都完成后执行, 可以用于处理一些并发的任务
+    Promise.all([promise1, promise2, promise3]).then((values) => {
+      // values 是一个数组, 会收集前面promise的结果 values[0] => promise1
+    })
+   -->
+
+   <script>
+
+    // const promise1 = Promise.resolve(3)
+    // const promise1 = new Promise((resolve, reject) => {
+    //   resolve(3)
+    // })
+
+    // const promise2 = Promise.reject(100)
+    // const promise2 = new Promise((resolve, reject) => {
+    //   reject(100)
+    // })
+
+    // ----------------------------------------------------------------------------------------
+    async function fn () {
+      const promise1 = Promise.resolve(3)
+      const promise2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const result = 100
+          resolve(result)
+        }, 3000)
+      })
+      const promise3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const result = 20
+          resolve(result)
+        }, 1000)
+      })
+      // Promise.all([promise1, promise2, promise3]).then(values => {
+      //   console.log(values)
+      // })
+      // const promise4 = axios.get('xxx/xxx')
+      // const values = await Promise.all([promise1, promise2, promise3, promise4])
+
+      const values = await Promise.all([promise1, promise2, promise3])
+      console.log(values)
+    }
+    fn()
+
+
+
+   </script>
+  
+</body>
+</html>

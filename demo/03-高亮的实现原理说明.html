@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div>abcA</div>
+  <div class="box">
+    <span style="color: red;">a</span>
+    bc
+    <span style="color: red;">A</span>
+  </div>
+
+  <script>
+    const box = document.querySelector('.box')
+
+    // 你要做的事情: 将 '我' => '<span style="color: red;">我</span>'
+    // const str = '我爱我家'
+    // str.replace(要替换的值, 替换成谁)
+    // const newStr = str.replace('我', '<span style="color: red;">我</span>')
+    // box.innerHTML = newStr
+    // console.log(newStr)
+
+    // 问题是: 只替换了一个, 也不能忽略大小写
+    // ----------------------------------------------------------------------------------
+    const str = 'abcAaC' 
+    const keyword = 'a' // 让A/a都高亮
+    // 正则替换
+    // 语法: str.replace(正则表达式, 函数)
+    // const regExp = new RegExp(字符串, 正则的模式)  g全局模式(都匹配到)  i忽略大小写
+    // const regExp = new RegExp('a')  =>  /a/
+    const regExp = new RegExp(keyword, 'gi')
+
+    // 函数:
+    // 1. 函数的参数, 匹配到的值
+    // 2. 函数的返回值, 就是需要替换成的值
+    const newStr = str.replace(regExp, (match) => {
+      return `<span style="color: red;">${match}</span>`
+    })
+    console.log(newStr)
+    box.innerHTML = newStr
+
+
+  </script>
+  
+</body>
+</html>
